@@ -3,7 +3,7 @@ import { ArrowRight, Download, Github, Linkedin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 
-/** Helper: one consistent section layout */
+/** One consistent section layout */
 function Section({
   id,
   title,
@@ -11,17 +11,17 @@ function Section({
   children,
 }: {
   id: string;
-  title: string;
+  title?: string;                 // title is optional (so hero can omit it)
   subtitle?: string;
   children: React.ReactNode;
 }) {
   return (
     <section id={id} className="py-16 md:py-24">
       <div className="mx-auto max-w-6xl px-6">
-        <h2 className="text-3xl md:text-4xl font-bold text-slate-100">{title}</h2>
-        {subtitle ? (
-          <p className="text-slate-400 mt-2">{subtitle}</p>
+        {title ? (
+          <h2 className="text-3xl md:text-4xl font-bold text-slate-100">{title}</h2>
         ) : null}
+        {subtitle ? <p className="text-slate-400 mt-2">{subtitle}</p> : null}
         <div className="mt-8">{children}</div>
       </div>
     </section>
@@ -29,13 +29,13 @@ function Section({
 }
 
 export default function Portfolio() {
-  // very important on GitHub Pages
+  // important for GitHub Pages subpath
   const BASE = import.meta.env.BASE_URL || "/";
 
   return (
     <main className="bg-transparent">
       {/* HERO */}
-      <Section id="hero" title="">
+      <Section id="hero">
         <div className="relative z-10 grid md:grid-cols-2 gap-10 items-center">
           <div>
             <h1 className="text-5xl md:text-6xl font-extrabold leading-tight text-slate-100">
@@ -113,23 +113,20 @@ export default function Portfolio() {
 
           {/* Profile image */}
           <div className="relative">
-            {/* non-blocking decorative overlay lives behind content */}
+            {/* decorative overlay behind content; non-blocking */}
             <div className="absolute inset-0 pointer-events-none z-0 rounded-3xl bg-[radial-gradient(1200px_700px_at_85%_-10%,rgba(99,102,241,.10)_0%,transparent_55%)]" />
             <img
-              src={`${BASE}profile.jpg`} // change to profile.png if you use png
+              src={`${BASE}profile.jpg`}          // change to profile.png if needed
               alt="Sooraj"
+              loading="lazy"
               className="relative z-10 w-full rounded-3xl border border-slate-800/60 bg-slate-900/40 object-cover"
             />
           </div>
         </div>
       </Section>
 
-      {/* ABOUT (keep your profile sentences) */}
-      <Section
-        id="about"
-        title="About"
-        subtitle="How I work and what I focus on"
-      >
+      {/* ABOUT */}
+      <Section id="about" title="About" subtitle="How I work and what I focus on">
         <div className="grid md:grid-cols-3 gap-6">
           <Card className="bg-slate-900/50 border-slate-800">
             <CardContent className="p-6">
@@ -228,8 +225,8 @@ export default function Portfolio() {
                 Python Web Development Expert (A+), NACTET — 2023
               </h3>
               <ul className="mt-3 text-slate-300 list-disc pl-6 space-y-2">
-                <li>Built full-stack web applications using Python, Django, HTML, CSS, and JavaScript, with DB integration and form handling.</li>
-                <li>Worked with RESTful APIs and followed best practices in modular coding and Git.</li>
+                <li>Built full-stack web apps with Python, Django, HTML, CSS, and JavaScript.</li>
+                <li>Worked with REST APIs and best practices in modular coding and Git.</li>
               </ul>
             </CardContent>
           </Card>
@@ -241,7 +238,7 @@ export default function Portfolio() {
               </h3>
               <ul className="mt-3 text-slate-300 list-disc pl-6 space-y-2">
                 <li>Developed full-stack projects using Django backend with responsive frontends.</li>
-                <li>Gained foundational Angular skills in component-based UI design.</li>
+                <li>Learned Angular fundamentals and component-based UI design.</li>
               </ul>
             </CardContent>
           </Card>
@@ -250,16 +247,16 @@ export default function Portfolio() {
             <CardContent className="p-6">
               <h3 className="text-xl font-semibold text-slate-100">Internet of Things Using Raspberry Pi — 2019</h3>
               <p className="mt-3 text-slate-300">
-                Practical knowledge building IoT apps with Raspberry Pi, including sensors, data collection, and automation.
+                Built IoT apps with Raspberry Pi: sensors, data collection, and automation.
               </p>
             </CardContent>
           </Card>
 
           <Card className="bg-slate-900/60 border-slate-800">
             <CardContent className="p-6">
-              <h3 className="text-xl font-semibold text-slate-100">Data Science A-Z Completion Certificate — 2022</h3>
+              <h3 className="text-xl font-semibold text-slate-100">Data Science A–Z Completion Certificate — 2022</h3>
               <p className="mt-3 text-slate-300">
-                Covered data preprocessing, analysis, visualization, and introductory machine learning using Python tools.
+                Covered preprocessing, analysis, visualization, and ML basics with Python.
               </p>
             </CardContent>
           </Card>
@@ -269,7 +266,7 @@ export default function Portfolio() {
       {/* PROJECTS */}
       <Section id="projects" title="Projects" subtitle="A few highlights. More on GitHub.">
         <div className="grid md:grid-cols-2 gap-6">
-          {/* Anti-Scrape Audit — links removed per request */}
+          {/* Anti-Scrape Audit — links removed */}
           <Card className="bg-slate-900/60 border-slate-800">
             <CardContent className="p-6">
               <h3 className="text-xl font-semibold text-slate-100">Anti-Scrape Audit</h3>
@@ -277,20 +274,14 @@ export default function Portfolio() {
                 Audits sites, detects 403/CAPTCHA/soft blocks, and scores scraping complexity. Automates Playwright checks and
                 chooses headers/proxies/clients.
               </p>
-
-              {/* tech badges */}
               <div className="mt-4 flex flex-wrap gap-2 text-xs">
                 {["Python", "Playwright", "Requests/Httpx", "Proxy rotation"].map((t) => (
-                  <span
-                    key={t}
-                    className="px-2 py-1 rounded-full bg-slate-800 border border-slate-700 text-slate-200"
-                  >
+                  <span key={t} className="px-2 py-1 rounded-full bg-slate-800 border border-slate-700 text-slate-200">
                     {t}
                   </span>
                 ))}
               </div>
-
-              {/* ⛔️ No Git/Docs buttons here */}
+              {/* no Git/Docs buttons for this card */}
             </CardContent>
           </Card>
 
@@ -304,16 +295,11 @@ export default function Portfolio() {
               </p>
               <div className="mt-4 flex flex-wrap gap-2 text-xs">
                 {["Pandas", "PySpark", "Airflow", "Monitoring"].map((t) => (
-                  <span
-                    key={t}
-                    className="px-2 py-1 rounded-full bg-slate-800 border border-slate-700 text-slate-200"
-                  >
+                  <span key={t} className="px-2 py-1 rounded-full bg-slate-800 border border-slate-700 text-slate-200">
                     {t}
                   </span>
                 ))}
               </div>
-
-              {/* Links kept for other projects */}
               <div className="mt-5 flex gap-3">
                 <Button asChild variant="secondary">
                   <a
@@ -338,10 +324,7 @@ export default function Portfolio() {
               </p>
               <div className="mt-4 flex flex-wrap gap-2 text-xs">
                 {["Python", "Django", "HTML", "CSS", "JS"].map((t) => (
-                  <span
-                    key={t}
-                    className="px-2 py-1 rounded-full bg-slate-800 border border-slate-700 text-slate-200"
-                  >
+                  <span key={t} className="px-2 py-1 rounded-full bg-slate-800 border border-slate-700 text-slate-200">
                     {t}
                   </span>
                 ))}
@@ -370,10 +353,7 @@ export default function Portfolio() {
               </p>
               <div className="mt-4 flex flex-wrap gap-2 text-xs">
                 {["Sensors", "Raspberry-Pi", "Android", "Safety"].map((t) => (
-                  <span
-                    key={t}
-                    className="px-2 py-1 rounded-full bg-slate-800 border border-slate-700 text-slate-200"
-                  >
+                  <span key={t} className="px-2 py-1 rounded-full bg-slate-800 border border-slate-700 text-slate-200">
                     {t}
                   </span>
                 ))}
