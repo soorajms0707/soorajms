@@ -4,3 +4,38 @@
 
 :root { color-scheme: dark; }
 body { background: #0b1220; }
+
+html { scroll-behavior: smooth; }
+
+/* flowing background across pages */
+.bg-flow {
+  background:
+    radial-gradient(1200px 700px at 20% -10%, rgba(56,189,248,.12) 0%, transparent 55%),
+    radial-gradient(1200px 700px at 85% -10%, rgba(99,102,241,.10) 0%, transparent 55%),
+    linear-gradient(180deg, rgba(4,7,16,1) 0%, rgba(7,12,24,1) 40%, rgba(7,12,24,1) 100%);
+}
+
+a, button { cursor: pointer; }
+
+
+/* Continuous background gradient across all pages while scrolling */
+html, body, #root { min-height: 100%; }
+.bg-flow {
+  /* layered radial accents + deep base */
+  background:
+    radial-gradient(1200px 700px at 20% -10%, rgba(56,189,248,.12) 0%, transparent 55%),
+    radial-gradient(1200px 700px at 85% -10%, rgba(99,102,241,.10) 0%, transparent 55%),
+    radial-gradient(1000px 600px at 50% 120%, rgba(56,189,248,.06) 0%, transparent 60%),
+    linear-gradient(180deg, #0b1220 0%, #0b1220 100%);
+  background-attachment: fixed, fixed, fixed, fixed; /* keep it continuous on scroll */
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+/* Global smooth scroll */
+html { scroll-behavior: smooth; }
+
+/* Align icon + text for anchors used as buttons (Download/Explore/etc.) */
+a.button-link { display: inline-flex; align-items: center; gap: 0.5rem; }
+a, button { cursor: pointer; }
+
