@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    "types": ["node"], 
     "target": "ES2020",
     "useDefineForClassFields": true,
     "lib": [
@@ -22,5 +21,7 @@
       ]
     }
   },
-  "include": ["src", "vite.config.ts"] 
+  "include": [
+    "src"
+  ]
 }

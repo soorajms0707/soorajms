@@ -1,14 +1,9 @@
-// vite.config.ts
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
-import { fileURLToPath, URL } from 'node:url'
+import path from 'path'
 
 export default defineConfig({
   plugins: [react()],
-  base: '/soorajms/',                               // repo name
-  resolve: {
-    alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url)),
-    },
-  },
+  resolve: { alias: { '@': path.resolve(__dirname, 'src') } },
+  base: '/soorajms/',
 })
